@@ -1,0 +1,11 @@
+echo "--- Files that import os ---"
+grep -i --include \*.py -E -l -r "^[^#]( *from +os| *import +os).*$" . 
+
+echo "--- Files that import subprocess ---"
+grep -i --include \*.py -E -l -r "^[^#]( *from +subprocess| *import +subprocess).*$" .
+
+echo "--- Files that import pickle ---"
+grep -i --include \*.py -E -l -r "^[^#]( *from +pickle| *import +pickle).*$" .
+
+echo "--- Files that import yaml ---"
+grep -i --include \*.py -E -l -r "^[^#]( *from +yaml| *import +yaml).*$" .
