@@ -1,0 +1,7 @@
+deps=( $(cat requirements.txt | grep -i -o -E "(^.*?)[^=>$]*") )
+for d in "${deps[@]}"
+do
+  echo "--- pip show $d ---"
+  pip search $d | grep -E -i "^$d .*$" | sed -E "s/[[:space:]]+/ /g"
+  echo ""
+done
