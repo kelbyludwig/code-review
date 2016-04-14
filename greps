@@ -1,11 +1,16 @@
-echo "--- Files that import os ---"
-grep -i --include \*.py -E -l -r "^[^#]( *from +os| *import +os).*$" . 
+python_danger_imports=("os" "subprocess" "shutil" "pickle" "cPickle" "yaml" "PyYaml")
 
-echo "--- Files that import subprocess ---"
-grep -i --include \*.py -E -l -r "^[^#]( *from +subprocess| *import +subprocess).*$" .
+for p in "${python_danger_imports[@]}"
+do
+  echo "--- Files that import $p ---"
+  grep -i --include \*.py -E -l -r -i "^(\s*from +$p|\s*import +$p).*$" .
+  echo "----------------------------"
+done
 
-echo "--- Files that import pickle ---"
-grep -i --include \*.py -E -l -r "^[^#]( *from +pickle| *import +pickle).*$" .
-
-echo "--- Files that import yaml ---"
-grep -i --include \*.py -E -l -r "^[^#]( *from +yaml| *import +yaml).*$" .
+python_danger_usage=("exec" "eval")
+for p in "${python_danger_usage[@]}"
+do
+  echo "--- Files that potentially use $p ---"
+  grep -i --color --include \*.py -r -E "(^|[ \t=]+)$p\(" .
+  echo "-------------------------------------"
+done
