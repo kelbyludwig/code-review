@@ -1,4 +1,4 @@
-python_danger_imports=("os" "subprocess" "shutil" "pickle" "cPickle" "yaml" "PyYaml")
+python_danger_imports=("os" "subprocess" "shutil" "pickle" "cPickle" "yaml" "PyYaml" "pty" "jinja")
 
 for p in "${python_danger_imports[@]}"
 do
@@ -13,4 +13,11 @@ do
   echo "--- Files that potentially use $p ---"
   grep -i --color --include \*.py -r -E "(^|[ \t=]+)$p\(" .
   echo "-------------------------------------"
+done
+
+requests_no_verify=("verify\=False")
+for p in "${requests_no_verify[@]}"
+do 
+  echo "--- Files that ignore SSL/TLS certificates ---"
+  grep -i --color --include \*.py -r -E "$p"
 done
