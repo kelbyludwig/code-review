@@ -1,10 +1,7 @@
 commands=("os" "subprocess" "commands" "shutil" "pty" "popen" "shelve")
 serialization=("marshal" "pickle" "cPickle" "yaml" "PyYaml")
 injection=("lxml" "jinja")
-python_danger_imports=()
-python_danger_imports+=injection
-python_danger_imports+=commands
-python_danger_imports+=serialization
+python_danger_imports=( "${injection[@]}" "${commands[@]}" "${serialization[@]}" )
 
 for p in "${python_danger_imports[@]}"
 do
